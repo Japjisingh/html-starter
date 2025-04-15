@@ -13,7 +13,7 @@
     .bg-gradient { background: linear-gradient(to right, #667eea, #764ba2); }
   </style>
   <script>
-    // Google Analytics
+    // Google Analytics setup
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
@@ -29,41 +29,41 @@
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-  <!-- Hero -->
+  <!-- Hero Section -->
   <header class="bg-gradient text-white py-20">
     <div class="max-w-6xl mx-auto px-6 text-center">
       <h1 class="text-5xl font-bold mb-4">📦 GTM Container Generator</h1>
-      <p class="text-xl mb-8">One-click pixel-loaded GTM containers for Shopify & WordPress. Includes Facebook, TikTok, Pinterest, and Google Ads.</p>
+      <p class="text-xl mb-8">Create your custom GTM container with pixels for Facebook, TikTok, Pinterest & more — optimized for Shopify & WordPress.</p>
       <a href="#generator" class="inline-block bg-white text-indigo-600 font-semibold px-6 py-3 rounded-full shadow hover:bg-gray-100 transition">Generate Now</a>
     </div>
   </header>
 
-  <!-- Features -->
+  <!-- Features Section -->
   <section class="py-20 bg-white">
     <div class="max-w-6xl mx-auto px-6 text-center">
-      <h2 class="text-3xl font-bold mb-10">🔥 What You Get</h2>
+      <h2 class="text-3xl font-bold mb-10">🚀 What’s Inside</h2>
       <div class="grid md:grid-cols-3 gap-8 text-left">
         <div class="p-6 rounded-lg shadow hover:shadow-lg transition">
-          <h3 class="text-xl font-semibold mb-2">📊 All Pixels in One</h3>
-          <p>Facebook, TikTok, Pinterest, Google Ads — no manual setup needed.</p>
+          <h3 class="text-xl font-semibold mb-2">🎯 Multi-Pixel Support</h3>
+          <p>Facebook, TikTok, Pinterest, and Google Ads tags — all preloaded into a GTM container.</p>
         </div>
         <div class="p-6 rounded-lg shadow hover:shadow-lg transition">
-          <h3 class="text-xl font-semibold mb-2">⚡ Instant Delivery</h3>
-          <p>Enter your IDs, pay, and download your GTM container in seconds.</p>
+          <h3 class="text-xl font-semibold mb-2">🧠 Smart & Customizable</h3>
+          <p>Simply enter your IDs — your download will be personalized with dynamic tags.</p>
         </div>
         <div class="p-6 rounded-lg shadow hover:shadow-lg transition">
-          <h3 class="text-xl font-semibold mb-2">💳 One-time Payment</h3>
-          <p>Only $199 for lifetime access. No monthly fees or subscriptions.</p>
+          <h3 class="text-xl font-semibold mb-2">💵 One-Time Payment</h3>
+          <p>Pay $199 once and use your file forever. No monthly fees or lock-ins.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PayPal Button -->
+  <!-- PayPal Section -->
   <section class="bg-gray-100 py-16 text-center">
     <div class="max-w-xl mx-auto">
-      <h2 class="text-2xl font-semibold mb-4">🛒 Purchase Access</h2>
-      <p class="mb-6 text-gray-600">Pay securely via PayPal before downloading your custom container.</p>
+      <h2 class="text-2xl font-semibold mb-4">🛒 Purchase Your Custom Container</h2>
+      <p class="mb-6 text-gray-600">Make a secure one-time payment before generating your file.</p>
       <div id="paypal-button-container"></div>
     </div>
   </section>
@@ -71,7 +71,7 @@
   <!-- Generator Form -->
   <section id="generator" class="py-20 bg-white">
     <div class="max-w-2xl mx-auto px-6 bg-gray-50 p-8 rounded-xl shadow-xl">
-      <h2 class="text-2xl font-bold text-center mb-6">🎯 Generate Your Container</h2>
+      <h2 class="text-2xl font-bold text-center mb-6">🧰 Build Your GTM Container</h2>
       <form onsubmit="generateContainer(); return false;">
         <input type="text" id="gtmContainerId" placeholder="GTM Container ID (e.g. GTM-XXXXXX)" class="w-full p-3 mb-4 border rounded" required>
         <input type="text" id="gaMeasurementId" placeholder="GA Measurement ID (e.g. G-XXXXXXX)" class="w-full p-3 mb-4 border rounded" required>
@@ -88,7 +88,7 @@
 
   <!-- Footer -->
   <footer class="bg-gray-50 py-10 text-center text-sm text-gray-600">
-    &copy; 2025 GTM Container Generator. Built with ❤️ for marketers and devs.
+    &copy; 2025 GTM Generator. All rights reserved.
   </footer>
 
   <!-- PayPal Script -->
@@ -98,9 +98,7 @@
         trackEvent('click', 'checkout', 'PayPal Checkout Start');
         return actions.order.create({
           purchase_units: [{
-            amount: {
-              value: '199.00'
-            }
+            amount: { value: '199.00' }
           }]
         });
       },
@@ -134,44 +132,42 @@
 
     function buildPixelTags({ fbPixelId, pinterestPixelId, tiktokPixelId }) {
       const tags = [];
-      if (fbPixelId) tags.push({ name: 'Facebook Pixel', type: 'html', parameter: [{ key: 'html', value: '<script>FB Code Here</script>' }] });
-      if (pinterestPixelId) tags.push({ name: 'Pinterest Tag', type: 'html', parameter: [{ key: 'html', value: '<script>Pinterest Code Here</script>' }] });
-      if (tiktokPixelId) tags.push({ name: 'TikTok Pixel', type: 'html', parameter: [{ key: 'html', value: '<script>TikTok Code Here</script>' }] });
+      if (fbPixelId) tags.push({ name: 'Facebook Pixel', type: 'html', parameter: [{ key: 'html', value: '<script>FB CODE HERE</script>' }] });
+      if (pinterestPixelId) tags.push({ name: 'Pinterest Tag', type: 'html', parameter: [{ key: 'html', value: '<script>PINTEREST CODE HERE</script>' }] });
+      if (tiktokPixelId) tags.push({ name: 'TikTok Pixel', type: 'html', parameter: [{ key: 'html', value: '<script>TIKTOK CODE HERE</script>' }] });
       return tags;
     }
 
     function generateContainer() {
-  const gaId = document.getElementById('gaMeasurementId').value.trim();
-  const gtmId = document.getElementById('gtmContainerId').value.trim();
-  const fb = document.getElementById('fbPixelId').value.trim();
-  const pin = document.getElementById('pinterestPixelId').value.trim();
-  const tt = document.getElementById('tiktokPixelId').value.trim();
-  const error = document.getElementById('error');
+      const gaId = document.getElementById('gaMeasurementId').value.trim();
+      const gtmId = document.getElementById('gtmContainerId').value.trim();
+      const fb = document.getElementById('fbPixelId').value.trim();
+      const pin = document.getElementById('pinterestPixelId').value.trim();
+      const tt = document.getElementById('tiktokPixelId').value.trim();
+      const error = document.getElementById('error');
 
-  if (!gaId || !gtmId) {
-    error.textContent = 'GTM Container ID and GA ID are required!';
-    return;
-  }
+      if (!gaId || !gtmId) {
+        error.textContent = 'GTM Container ID and GA Measurement ID are required!';
+        return;
+      }
 
-  const template = {
-    containerVersion: {
-      container: { publicId: gtmId },
-      variable: [{
-        name: 'Measure ID',
-        parameter: [{ key: 'value', value: gaId }]
-      }],
-      tag: buildPixelTags({ fbPixelId: fb, pinterestPixelId: pin, tiktokPixelId: tt })
+      const template = {
+        containerVersion: {
+          container: { publicId: gtmId },
+          variable: [{
+            name: 'Measure ID',
+            parameter: [{ key: 'value', value: gaId }]
+          }],
+          tag: buildPixelTags({ fbPixelId: fb, pinterestPixelId: pin, tiktokPixelId: tt })
+        }
+      };
+
+      const json = JSON.stringify(template, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      saveAs(blob, 'GTM-Custom-Container.json');
+      error.textContent = '';
     }
-  };
-
-  const json = JSON.stringify(template, null, 2);
-  const blob = new Blob([json], { type: 'application/json' });
-  saveAs(blob, 'GTM-Custom-Container.json');
-  error.textContent = '';
-}
-
-  
-  }
   </script>
 </body>
 </html>
+

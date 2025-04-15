@@ -141,33 +141,34 @@
     }
 
     function generateContainer() {
-      const gaId = document.getElementById('gaMeasurementId').value.trim();
-      const gtmId = document.getElementById('gtmContainerId').value.trim();
-      const fb = document.getElementById('fbPixelId').value.trim();
-      const pin = document.getElementById('pinterestPixelId').value.trim();
-      const tt = document.getElementById('tiktokPixelId').value.trim();
-      const error = document.getElementById('error');
+  const gaId = document.getElementById('gaMeasurementId').value.trim();
+  const gtmId = document.getElementById('gtmContainerId').value.trim();
+  const fb = document.getElementById('fbPixelId').value.trim();
+  const pin = document.getElementById('pinterestPixelId').value.trim();
+  const tt = document.getElementById('tiktokPixelId').value.trim();
+  const error = document.getElementById('error');
 
-      if (!gaId || !gtmId) {
-        error.textContent = 'GTM Container ID and GA ID are required!';
-        return;
-      }
+  if (!gaId || !gtmId) {
+    error.textContent = 'GTM Container ID and GA ID are required!';
+    return;
+  }
 
-      const template = {
-        containerVersion: {
-          container: { publicId: gtmId },
-          variable: [{
-            name: 'Measure ID',
-            parameter: [{ key: 'value', value: gaId }]
-          }],
-          tag: buildPixelTags({ fbPixelId: fb, pinterestPixelId: pin, tiktokPixelId: tt })
-        }
-      };
+  const template = {
+    containerVersion: {
+      container: { publicId: gtmId },
+      variable: [{
+        name: 'Measure ID',
+        parameter: [{ key: 'value', value: gaId }]
+      }],
+      tag: buildPixelTags({ fbPixelId: fb, pinterestPixelId: pin, tiktokPixelId: tt })
+    }
+  };
 
-      const json = JSON.stringify(template, null, 2);
-      const blob = new Blob([json], { type: 'application/json' });
-      saveAs(blob, 'GTM-Custom-Container.json');
-      error.textContent = '';
+  const json = JSON.stringify(template, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  saveAs(blob, 'GTM-Custom-Container.json');
+  error.textContent = '';
+}
     }
   </script>
 </body>

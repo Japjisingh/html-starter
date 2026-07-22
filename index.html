@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Pariksha — India's competitive-exam test series, reimagined for 2026. Adaptive practice, real exam-hall UI, 1v1 battles and predicted percentile." />
+  <meta name="description" content="Pariksha — India's competitive-exam test series, reimagined for 2026. Real SSC CGL PYQ tests, adaptive practice, 1v1 battles and predicted percentile." />
   <title>Pariksha — India's Test Series, Reimagined</title>
 </head>
 <body>
@@ -476,9 +476,9 @@
 <section class="blk" id="tests">
   <div class="wrap">
     <div class="sec-head">
-      <p class="eyebrow">Try it for real — no signup</p>
-      <h2>Take a live sample test.</h2>
-      <p>Three short sectional mocks built to real exam patterns. Timer, question palette, mark-for-review, instant scoring, percentile and worked solutions — exactly as a full test feels.</p>
+      <p class="eyebrow">Actual PYQs · SSC CGL 12 Sep 2025 · no signup</p>
+      <h2>Take a live sample test — with real questions.</h2>
+      <p>Four sectional mocks built from the actual SSC CGL Tier-1 paper held on 12 Sep 2025 (all three shifts), with the official answer keys. Full exam-hall interface: timer, question palette, mark-for-review, instant scoring, percentile and worked solutions.</p>
     </div>
     <div class="tests" id="testCards"></div>
   </div>
@@ -512,178 +512,144 @@
 <script>
 /* ---------------- TEST DATA ---------------- */
 const TESTS = {
-  ssc: {
+  reasoning: {
+    name: "SSC CGL — General Intelligence & Reasoning",
+    badge: "Real PYQ · 12 Sep 2025", badgeColor: "#EC7C1E", pyq:true,
+    minutes: 7,
+    q: [
+      { topic:"Analogy", diff:"Easy", src:"Shift 1",
+        text:"Select the related word: Joule : Energy :: Newton : ?",
+        opts:["Force","Pressure","Work","Power"], ans:0,
+        exp:"The joule is the SI unit of energy; the newton is the SI unit of force." },
+      { topic:"Number Series", diff:"Moderate", src:"Shift 1",
+        text:"What comes next: 5, 14, 9, 18, 13, 22, 17, ?",
+        opts:["26","24","21","20"], ans:0,
+        exp:"Two alternating series: 5, 9, 13, 17 (+4) and 14, 18, 22, … (+4). After 17 comes 22+4 = 26." },
+      { topic:"Odd One Out", diff:"Easy", src:"Shift 1",
+        text:"Identify the odd one: 3, 5, 7, 11, 13, 17, 19, 21",
+        opts:["21","13","11","19"], ans:0,
+        exp:"All are prime numbers except 21 (= 3 × 7)." },
+      { topic:"Ranking", diff:"Moderate", src:"Shift 2",
+        text:"In a row of 60 students, P is 18th from the left and Q is 25th from the right. How many students are between P and Q?",
+        opts:["15","16","17","18"], ans:2,
+        exp:"Q is 25th from right → 60 − 25 + 1 = 36th from left. Between 18th and 36th = 36 − 18 − 1 = 17." },
+      { topic:"Counting", diff:"Moderate", src:"Shift 3",
+        text:"In a tournament of 9 players, each plays every other player once. How many matches are played?",
+        opts:["72","40","42","36"], ans:3,
+        exp:"Each pair plays once → C(9,2) = 9×8/2 = 36 matches." },
+      { topic:"Odd One Out", diff:"Hard", src:"Shift 2",
+        text:"Find the odd one out: 729, 1331, 2197, 3125",
+        opts:["729","1331","2197","3125"], ans:3,
+        exp:"729 = 9³, 1331 = 11³, 2197 = 13³ are perfect cubes; 3125 = 5⁵ is not." },
+      { topic:"Symbol Operations", diff:"Moderate", src:"Shift 1",
+        text:"If @ = ×, # = −, $ = ÷ and % = +, evaluate: 8 @ 3 # 4 % 6 $ 2",
+        opts:["26","23","24","20"], ans:1,
+        exp:"8×3 − 4 + 6÷2 = 24 − 4 + 3 = 23 (apply ×, ÷ before +, −)." }
+    ]
+  },
+  ga: {
+    name: "SSC CGL — General Awareness",
+    badge: "Real PYQ · 12 Sep 2025", badgeColor: "#12A594", pyq:true,
+    minutes: 6,
+    q: [
+      { topic:"Science & Tech", diff:"Easy", src:"Shift 1",
+        text:"In quantum computing, the basic unit of information that can exist in multiple states simultaneously is called:",
+        opts:["Bit","Qubit","Logic Gate","Transistor"], ans:1,
+        exp:"A qubit can be in a superposition of 0 and 1 at the same time, unlike a classical bit." },
+      { topic:"Environment", diff:"Easy", src:"Shift 1",
+        text:"The 'Ramsar Convention' is related to the conservation of:",
+        opts:["Tigers","Wetlands","Coral reefs","Elephants"], ans:1,
+        exp:"The Ramsar Convention (1971) is the international treaty for the conservation of wetlands." },
+      { topic:"Biology", diff:"Moderate", src:"Shift 1",
+        text:"Which gland is often referred to as the 'Master Gland' of the human body?",
+        opts:["Thyroid","Adrenal","Pituitary","Pancreas"], ans:2,
+        exp:"The pituitary gland controls other endocrine glands, so it is called the master gland." },
+      { topic:"Geography", diff:"Moderate", src:"Shift 1",
+        text:"Which river is known as the 'Sorrow of Bihar'?",
+        opts:["Gandak","Kosi","Son","Ghaghara"], ans:1,
+        exp:"The Kosi river's frequent floods and course changes earned it the name 'Sorrow of Bihar'." },
+      { topic:"Modern History", diff:"Easy", src:"Shift 1",
+        text:"Who is the author of the famous book 'Hind Swaraj'?",
+        opts:["Bal Gangadhar Tilak","Mahatma Gandhi","Jawaharlal Nehru","Sardar Patel"], ans:1,
+        exp:"Mahatma Gandhi wrote 'Hind Swaraj' in 1909." },
+      { topic:"Modern History", diff:"Moderate", src:"Shift 1",
+        text:"Who was the first Viceroy of India?",
+        opts:["Lord Warren Hastings","Lord Canning","Lord Mountbatten","Lord Dalhousie"], ans:1,
+        exp:"Lord Canning became the first Viceroy in 1858 after the Crown took over from the East India Company." },
+      { topic:"Art & Culture", diff:"Easy", src:"Shift 3",
+        text:"The Kalbelia dance symbolises the sinuous motion of ______.",
+        opts:["Camels","Snakes","Birds","Horses"], ans:1,
+        exp:"Kalbelia, a Rajasthani folk dance of the snake-charmer community, mimics a serpent's movements." }
+    ]
+  },
+  quant: {
     name: "SSC CGL — Quantitative Aptitude",
-    badge: "SSC · Tier 1", badgeColor: "#EC7C1E",
-    minutes: 6,
+    badge: "Real PYQ · 12 Sep 2025", badgeColor: "#7A6BF0", pyq:true,
+    minutes: 9,
     q: [
-      { topic:"Speed & Distance", diff:"Moderate",
-        text:"A train 180 m long crosses a platform 270 m long in 30 seconds. What is its speed?",
-        opts:["45 km/h","54 km/h","60 km/h","72 km/h"], ans:1,
-        exp:"Total distance = 180 + 270 = 450 m in 30 s → 15 m/s. Multiply by 18/5 → 54 km/h." },
-      { topic:"Percentages", diff:"Moderate",
-        text:"If the price of sugar rises by 25%, by what percent must a family cut consumption to keep its sugar bill unchanged?",
-        opts:["20%","25%","15%","30%"], ans:0,
-        exp:"Reduction % = 25/(100+25) × 100 = 20%. A rise of r% needs a cut of r/(100+r)%." },
-      { topic:"Averages", diff:"Easy",
-        text:"What is the average of the first five positive multiples of 7?",
-        opts:["21","17.5","28","20"], ans:0,
-        exp:"7, 14, 21, 28, 35 → sum 105 ÷ 5 = 21 (it's simply the middle term)." },
-      { topic:"Simple Interest", diff:"Hard",
-        text:"A sum of money doubles itself in 8 years under simple interest. In how many years will it become four times?",
-        opts:["16 years","24 years","32 years","20 years"], ans:1,
-        exp:"To double, interest = principal in 8 yrs. To become 4×, interest = 3× principal → 3 × 8 = 24 years." },
-      { topic:"Simplification", diff:"Easy",
-        text:"25% of 480 + 40% of 250 = ?",
-        opts:["200","220","240","210"], ans:1,
-        exp:"25% of 480 = 120; 40% of 250 = 100; 120 + 100 = 220." }
-    ]
-  },
-  bank: {
-    name: "IBPS PO — Reasoning Ability",
-    badge: "Banking · Prelims", badgeColor: "#10998B",
-    minutes: 6,
-    q: [
-      { topic:"Coding–Decoding", diff:"Easy",
-        text:"If 'CAT' is coded as 'DBU', how is 'DOG' coded in the same scheme?",
-        opts:["EPH","CPF","EPG","DPH"], ans:0,
-        exp:"Each letter shifts forward by one: D→E, O→P, G→H → EPH." },
-      { topic:"Blood Relations", diff:"Moderate",
-        text:"Pointing to a woman, Ravi says, \"She is the daughter of my grandfather's only son.\" How is she related to Ravi?",
-        opts:["Sister","Daughter","Niece","Cousin"], ans:0,
-        exp:"Grandfather's only son = Ravi's father. His daughter is Ravi's sister." },
-      { topic:"Number Series", diff:"Moderate",
-        text:"Find the next term: 3, 6, 11, 18, 27, ?",
-        opts:["36","38","40","42"], ans:1,
-        exp:"Differences are 3, 5, 7, 9 (consecutive odd numbers). Next gap is 11 → 27 + 11 = 38." },
-      { topic:"Ranking", diff:"Easy",
-        text:"In a row of 40 students, Rahul is 12th from the left end. What is his position from the right end?",
-        opts:["28th","29th","30th","27th"], ans:1,
-        exp:"Position from right = Total − Position from left + 1 = 40 − 12 + 1 = 29th." },
-      { topic:"Syllogism", diff:"Hard",
-        text:"Statements: All pens are books. All books are red. Which conclusion(s) follow? (I) All pens are red. (II) Some red are pens.",
-        opts:["Only I follows","Only II follows","Both I and II follow","Neither follows"], ans:2,
-        exp:"Pens ⊆ books ⊆ red, so all pens are red (I). If all pens are red, some red are pens (II). Both follow." }
-    ]
-  },
-  gk: {
-    name: "General Awareness — Polity, Geography & Economy",
-    badge: "All exams · GK", badgeColor: "#7A6BF0",
-    minutes: 5,
-    q: [
-      { topic:"Indian Polity", diff:"Moderate",
-        text:"Which Article of the Indian Constitution guarantees the Right to Constitutional Remedies?",
-        opts:["Article 19","Article 21","Article 32","Article 44"], ans:2,
-        exp:"Article 32 lets citizens approach the Supreme Court directly — Dr. Ambedkar called it the 'heart and soul' of the Constitution." },
-      { topic:"Indian Polity", diff:"Moderate",
-        text:"How many Fundamental Duties are currently listed in the Indian Constitution?",
-        opts:["10","11","12","9"], ans:1,
-        exp:"Originally 10 (42nd Amendment, 1976); an 11th was added by the 86th Amendment, 2002." },
-      { topic:"Geography", diff:"Hard",
-        text:"The Tropic of Cancer passes through how many Indian states?",
-        opts:["6","8","9","7"], ans:1,
-        exp:"8 states: Gujarat, Rajasthan, Madhya Pradesh, Chhattisgarh, Jharkhand, West Bengal, Tripura and Mizoram." },
-      { topic:"Modern History", diff:"Easy",
-        text:"Who chaired the Drafting Committee of the Indian Constitution and is called its chief architect?",
-        opts:["Jawaharlal Nehru","Dr. B. R. Ambedkar","Sardar Patel","Dr. Rajendra Prasad"], ans:1,
-        exp:"Dr. B. R. Ambedkar chaired the Drafting Committee and is regarded as the chief architect of the Constitution." },
-      { topic:"Economy", diff:"Easy",
-        text:"In which year was the Reserve Bank of India established?",
-        opts:["1935","1947","1949","1950"], ans:0,
-        exp:"The RBI began operations on 1 April 1935 under the RBI Act, 1934. It was nationalised in 1949." }
+      { topic:"Time & Work", diff:"Moderate", src:"Shift 1",
+        text:"X completes a task in 12 days, Y in 18 days. If they work together for 3 days, what fraction of the work remains?",
+        opts:["1/3","5/12","7/12","9/12"], ans:2,
+        exp:"Combined rate = 1/12 + 1/18 = 5/36 per day. In 3 days: 15/36 = 5/12 done → remaining = 7/12." },
+      { topic:"Compound Interest", diff:"Hard", src:"Shift 1",
+        text:"A sum triples in 6 years under compound interest. In how many years will it become 27 times its original value?",
+        opts:["18","19","20","21"], ans:0,
+        exp:"27 = 3³. Since it triples every 6 years, three triplings take 3 × 6 = 18 years." },
+      { topic:"Mixtures", diff:"Moderate", src:"Shift 1",
+        text:"A 50-litre mixture has juice and water in the ratio 3:2. How much water must be added to make the ratio 3:4?",
+        opts:["12 litres","15 litres","18 litres","20 litres"], ans:3,
+        exp:"Juice = 30 L, water = 20 L. For 3:4 with juice fixed: 30/(20+x) = 3/4 → 20 + x = 40 → x = 20 L." },
+      { topic:"Coordinate Geometry", diff:"Easy", src:"Shift 1",
+        text:"The line y = mx + 7 passes through the point (2, 13). Find m.",
+        opts:["2","3","6","5"], ans:1,
+        exp:"Substitute: 13 = 2m + 7 → 2m = 6 → m = 3." },
+      { topic:"Partnership", diff:"Easy", src:"Shift 2",
+        text:"P and Q invest ₹50,000 and ₹75,000 in a business. What is P's share of a ₹60,000 profit?",
+        opts:["₹18,000","₹22,000","₹24,000","₹26,000"], ans:2,
+        exp:"Ratio 50,000:75,000 = 2:3. P's share = 2/5 × 60,000 = ₹24,000." },
+      { topic:"Mensuration", diff:"Easy", src:"Shift 2",
+        text:"Two circles have their radii in the ratio 5:8. What is the ratio of their areas?",
+        opts:["5:8","25:64","8:5","64:25"], ans:1,
+        exp:"Area ∝ radius². Ratio of areas = 5² : 8² = 25:64." },
+      { topic:"Mensuration", diff:"Moderate", src:"Shift 3",
+        text:"A right circular cone has radius 9 cm and height 40 cm. What is its slant height?",
+        opts:["41 cm","42 cm","43 cm","45 cm"], ans:0,
+        exp:"Slant height = √(r² + h²) = √(81 + 1600) = √1681 = 41 cm." }
     ]
   },
   english: {
-    name: "SSC CGL — English Comprehension (Tier-1)",
-    badge: "SSC CGL · PYQ pattern", badgeColor: "#D9663C",
-    minutes: 8,
-    q: [
-      { topic:"Antonym", diff:"Moderate",
-        text:"Select the word that is OPPOSITE in meaning to the given word: 'BENEVOLENT'.",
-        opts:["Kind","Malevolent","Generous","Gracious"], ans:1,
-        exp:"'Benevolent' means kind/well-meaning; its antonym is 'malevolent' (wishing harm). A very common SSC antonym pair." },
-      { topic:"Synonym", diff:"Moderate",
-        text:"Select the most appropriate synonym of the given word: 'METICULOUS'.",
-        opts:["Reckless","Careful","Hasty","Rude"], ans:1,
-        exp:"'Meticulous' means showing great attention to detail — careful and precise." },
-      { topic:"Idioms & Phrases", diff:"Easy",
-        text:"Select the correct meaning of the idiom: 'To let the cat out of the bag'.",
-        opts:["To keep a secret safe","To reveal a secret carelessly","To buy something useless","To start a quarrel"], ans:1,
-        exp:"'Let the cat out of the bag' = to disclose a secret, usually by accident." },
-      { topic:"One-word Substitution", diff:"Moderate",
-        text:"Select the one word for the given group of words: 'A government by the wealthy class'.",
-        opts:["Aristocracy","Plutocracy","Oligarchy","Autocracy"], ans:1,
-        exp:"'Plutocracy' = rule by the wealthy. (Aristocracy = by nobles; Oligarchy = by a few; Autocracy = by one.)" },
-      { topic:"Spelling", diff:"Easy",
-        text:"Select the correctly spelt word.",
-        opts:["Occassion","Occasion","Ocassion","Occasusion"], ans:1,
-        exp:"The correct spelling is 'Occasion' — one 'c', one 's'." },
-      { topic:"Sentence Improvement", diff:"Moderate",
-        text:"Improve the underlined part: 'She is <u>senior than me</u> by three years.'",
-        opts:["senior to me","senior from me","more senior than me","No improvement"], ans:0,
-        exp:"Latin comparatives (senior, junior, superior, prior) take 'to', not 'than' → 'senior to me'." },
-      { topic:"Error Spotting", diff:"Hard",
-        text:"Identify the segment that contains a grammatical error: 'The teacher, along with her students, (A) / were present (B) / at the annual function. (C) / No error (D)'",
-        opts:["Part A","Part B","Part C","No error"], ans:1,
-        exp:"With 'along with', the verb agrees with the singular subject 'teacher' → 'was present', not 'were present'." },
-      { topic:"Active–Passive Voice", diff:"Moderate",
-        text:"Select the correct passive voice of: 'Someone has stolen my bike.'",
-        opts:["My bike has been stolen.","My bike was stolen.","My bike is being stolen.","My bike had been stolen."], ans:0,
-        exp:"Present perfect active (has stolen) → present perfect passive: 'has been stolen'." }
-    ]
-  },
-  rrb: {
-    name: "RRB NTPC — General Science & Maths",
-    badge: "Railways · CBT", badgeColor: "#2C8C7E",
-    minutes: 5,
-    q: [
-      { topic:"Chemistry", diff:"Easy",
-        text:"What is the chemical symbol for Gold?",
-        opts:["Gd","Au","Ag","Go"], ans:1,
-        exp:"Gold is 'Au' (from Latin 'aurum'). 'Ag' is silver." },
-      { topic:"Biology", diff:"Easy",
-        text:"Which cell organelle is known as the 'powerhouse of the cell'?",
-        opts:["Nucleus","Mitochondria","Ribosome","Chloroplast"], ans:1,
-        exp:"Mitochondria generate ATP through respiration — the cell's energy currency." },
-      { topic:"LCM & HCF", diff:"Moderate",
-        text:"Find the LCM of 12, 15 and 20.",
-        opts:["60","120","180","30"], ans:0,
-        exp:"12 = 2²·3, 15 = 3·5, 20 = 2²·5 → LCM = 2²·3·5 = 60." },
-      { topic:"Physics", diff:"Easy",
-        text:"Which gas is the most abundant in Earth's atmosphere?",
-        opts:["Oxygen","Nitrogen","Carbon dioxide","Argon"], ans:1,
-        exp:"Nitrogen makes up about 78% of the atmosphere; oxygen is about 21%." },
-      { topic:"Profit & Loss", diff:"Hard",
-        text:"A shopkeeper marks his goods 40% above cost, then allows a 10% discount. His profit percent is:",
-        opts:["26%","30%","25%","28%"], ans:0,
-        exp:"MP = 1.40·CP; SP = 1.40 × 0.90 = 1.26·CP → profit = 26%." }
-    ]
-  },
-  upsc: {
-    name: "UPSC Prelims — General Studies I",
-    badge: "UPSC · Prelims", badgeColor: "#6D5CE0",
+    name: "SSC CGL — English Comprehension",
+    badge: "Real PYQ · 12 Sep 2025", badgeColor: "#D9663C", pyq:true,
     minutes: 6,
     q: [
-      { topic:"Polity", diff:"Hard",
-        text:"The 'Doctrine of Basic Structure' of the Constitution was propounded by the Supreme Court in which case?",
-        opts:["Golaknath case","Kesavananda Bharati case","Minerva Mills case","Maneka Gandhi case"], ans:1,
-        exp:"Kesavananda Bharati v. State of Kerala (1973) established that Parliament cannot alter the Constitution's basic structure." },
-      { topic:"Geography", diff:"Moderate",
-        text:"Which of the following rivers does NOT originate within India?",
-        opts:["Godavari","Brahmaputra","Narmada","Mahanadi"], ans:1,
-        exp:"The Brahmaputra rises in Tibet as the Yarlung Tsangpo; the others originate in India." },
-      { topic:"Economy", diff:"Easy",
-        text:"The term 'Blue Revolution' in India is associated with:",
-        opts:["Milk production","Fish & aquaculture","Oilseed production","Horticulture"], ans:1,
-        exp:"Blue Revolution = development of fisheries and aquaculture. (Milk = White, Oilseeds = Yellow.)" },
-      { topic:"Polity", diff:"Moderate",
-        text:"Provisions relating to anti-defection are contained in which Schedule of the Constitution?",
-        opts:["Ninth Schedule","Tenth Schedule","Eleventh Schedule","Twelfth Schedule"], ans:1,
-        exp:"The Tenth Schedule (added by the 52nd Amendment, 1985) contains the anti-defection provisions." },
-      { topic:"Polity", diff:"Hard",
-        text:"With reference to 'Zero Hour' in the Indian Parliament, which statement is correct?",
-        opts:["It is mentioned in the Constitution","It is an informal device, not in the Rules of Procedure","It is fixed at exactly two hours","It was borrowed from the UK Parliament"], ans:1,
-        exp:"Zero Hour is an Indian innovation — informal, starting right after Question Hour, and not mentioned in the Rules of Procedure." }
+      { topic:"One-word Substitution", diff:"Easy", src:"Shift 1",
+        text:"Choose the correct one-word substitute for: 'A person who speaks two languages fluently'.",
+        opts:["Accusation","Denunciation","Bilingual","Indictment"], ans:2,
+        exp:"A person fluent in two languages is 'bilingual'." },
+      { topic:"Idioms & Phrases", diff:"Moderate", src:"Shift 1",
+        text:"Choose the correct meaning of the idiom: 'At sixes and sevens'.",
+        opts:["A dilemma between two evils","A free and fair decision","In complete confusion","A choice made under duress"], ans:2,
+        exp:"'At sixes and sevens' means in a state of total confusion or disorder." },
+      { topic:"Synonym", diff:"Moderate", src:"Shift 1",
+        text:"Select the most appropriate synonym of: DUPLICITOUS",
+        opts:["Honest","Faithful","Deceitful","Loyal"], ans:2,
+        exp:"'Duplicitous' means deceitful or double-dealing." },
+      { topic:"Spelling", diff:"Hard", src:"Shift 1",
+        text:"Identify the misspelt word.",
+        opts:["Vicereine","Floccinaucinihilipilification","Defenestrate","Sacrilegous"], ans:3,
+        exp:"The correct spelling is 'sacrilegious', so 'Sacrilegous' is misspelt." },
+      { topic:"Synonym", diff:"Hard", src:"Shift 2",
+        text:"Select the most appropriate synonym of: ABJURE",
+        opts:["Demand","Accept","Renounce","Retain"], ans:2,
+        exp:"'Abjure' means to formally renounce or give up (a belief, claim, or allegiance)." },
+      { topic:"Idioms & Phrases", diff:"Easy", src:"Shift 2",
+        text:"Choose the correct meaning of the idiom: 'Leave no stone unturned'.",
+        opts:["To keep moving from place to place","To make every possible effort to achieve a goal","To stay quiet as a protest","To obey without question"], ans:1,
+        exp:"'Leave no stone unturned' means to try every possible course of action to succeed." },
+      { topic:"One-word Substitution", diff:"Hard", src:"Shift 3",
+        text:"Identify the correct one-word substitute for: 'A condition of disuse or inactivity'.",
+        opts:["Interregnum","Destitute","Lethargy","Desuetude"], ans:3,
+        exp:"'Desuetude' is a state of disuse. (Interregnum = a gap between reigns; lethargy = tiredness.)" }
     ]
   }
 };
@@ -766,6 +732,7 @@ function renderRunner(){
           <span class="qn num">Q${idx+1}.</span>
           <span class="qtag">${q.topic}</span>
           <span class="qtag diff">${q.diff}</span>
+          ${q.src?`<span class="qtag" style="background:var(--teal-soft);color:var(--teal)">PYQ · ${q.src}</span>`:''}
           <span style="margin-left:auto;font-size:12.5px;color:var(--ink-3);font-weight:700">+2 correct · −0.5 wrong</span>
         </div>
         <div class="qtext">${q.text}</div>
@@ -894,7 +861,7 @@ function submitTest(){
               (a===q.ans?'<b style="color:var(--teal)">You answered correctly.</b> ':
               `You chose <b>${keys[a]}) ${q.opts[a]}</b>. `)}
             Correct answer: <b>${keys[q.ans]}) ${q.opts[q.ans]}</b><br>
-            <span style="color:var(--ink-2)">💡 ${q.exp}</span>
+            <span style="color:var(--ink-2)">💡 ${q.exp}</span>${q.src?` <span style="color:var(--ink-3)">— actual question, SSC CGL 12 Sep 2025, ${q.src}</span>`:''}
           </div>
         </div>`;
       }).join('')}

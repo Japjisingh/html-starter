@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Pariksha — India's competitive-exam test series, reimagined for 2026. Adaptive practice, real exam-hall UI, and predicted percentile." />
+  <meta name="description" content="Pariksha — India's competitive-exam test series, reimagined for 2026. Adaptive practice, real exam-hall UI, 1v1 battles and predicted percentile." />
   <title>Pariksha — India's Test Series, Reimagined</title>
 </head>
 <body>
@@ -270,6 +270,58 @@
   .foot-row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
   .disclaimer{max-width:560px;line-height:1.5}
 
+  /* ---------- battle ---------- */
+  .battle-cta{background:linear-gradient(115deg,var(--mark-soft),var(--surface) 60%);border:1px solid var(--line);
+    border-radius:22px;padding:30px;display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center;box-shadow:var(--shadow)}
+  .battle-copy h2{font-size:clamp(24px,3vw,32px);font-weight:820;margin-top:8px}
+  .battle-copy p{margin:12px 0 20px;color:var(--ink-2);font-size:16px;max-width:42ch}
+  .battle-preview{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px}
+  .bp-row{display:flex;align-items:center;gap:12px}
+  .bp-bar{flex:1;height:12px;border-radius:99px;background:var(--line-2);overflow:hidden}
+  .bp-bar i{display:block;height:100%;border-radius:99px;background:var(--brand);transition:width .5s}
+  .bp-bar i.op{background:var(--mark)}
+  .bp-vs{text-align:center;font-weight:850;font-size:12px;color:var(--ink-3);letter-spacing:.14em;margin:9px 0}
+  @media(max-width:760px){.battle-cta{grid-template-columns:1fr}}
+
+  /* battle runner reuses .runner; extra bits */
+  .battle-score{display:flex;align-items:center;gap:14px;padding:14px 20px;background:var(--surface);border-bottom:1px solid var(--line)}
+  .bs-side{flex:1;display:flex;align-items:center;gap:10px}
+  .bs-side.op{flex-direction:row-reverse;text-align:right}
+  .bs-side .nm{font-weight:800;font-size:14px}
+  .bs-side .sc{font-size:26px;font-weight:850;line-height:1}
+  .bs-mid{font-weight:850;color:var(--ink-3);font-size:13px}
+  .op-flash{font-size:12.5px;font-weight:800;min-height:18px;text-align:center;padding:6px}
+  .barea{padding:26px;overflow:auto;flex:1;display:flex;flex-direction:column}
+  .btimer{height:6px;border-radius:99px;background:var(--line-2);overflow:hidden;margin-bottom:22px}
+  .btimer i{display:block;height:100%;background:var(--brand);width:100%;transition:width 1s linear}
+  .btimer i.low{background:var(--wrong)}
+
+  /* ---------- doubt solver ---------- */
+  .doubt-fab{position:fixed;bottom:22px;right:22px;z-index:80;border:none;cursor:pointer;
+    background:var(--ink);color:var(--paper);font-weight:800;font-size:14px;padding:13px 18px;border-radius:99px;
+    display:flex;align-items:center;gap:9px;box-shadow:var(--shadow-lg)}
+  .doubt-fab:hover{transform:translateY(-2px)}
+  .doubt-fab span{font-size:17px}
+  .doubt-panel{position:fixed;bottom:22px;right:22px;z-index:90;width:min(370px,calc(100vw - 32px));
+    height:min(520px,calc(100vh - 44px));background:var(--surface);border:1px solid var(--line);border-radius:18px;
+    box-shadow:var(--shadow-lg);display:none;flex-direction:column;overflow:hidden}
+  .doubt-panel.open{display:flex}
+  .dp-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);font-size:13.5px}
+  .dp-body{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+  .msg{max-width:85%;padding:11px 14px;border-radius:14px;font-size:14px;line-height:1.45}
+  .msg.bot{background:var(--surface-2);border:1px solid var(--line);border-bottom-left-radius:5px;align-self:flex-start}
+  .msg.me{background:var(--brand);color:#231400;border-bottom-right-radius:5px;align-self:flex-end;font-weight:600}
+  .msg.bot b{color:var(--teal)}
+  .typing{align-self:flex-start;display:flex;gap:4px;padding:12px 14px}
+  .typing i{width:7px;height:7px;border-radius:99px;background:var(--ink-3);animation:blink 1.2s infinite}
+  .typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+  @keyframes blink{0%,60%,100%{opacity:.25}30%{opacity:1}}
+  .dp-chips{padding:12px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px}
+  .dp-chips button{cursor:pointer;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);
+    font-size:12.5px;font-weight:700;padding:8px 12px;border-radius:99px}
+  .dp-chips button:hover{border-color:var(--ink-3)}
+  @media(max-width:520px){.doubt-panel{bottom:0;right:0;width:100vw;height:78vh;border-radius:18px 18px 0 0}}
+
   @media (prefers-reduced-motion: reduce){
     *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   }
@@ -280,7 +332,8 @@
     <div class="brand"><span class="logo">प</span> Pariksha</div>
     <nav class="nav">
       <a href="#why">Why Pariksha</a>
-      <a href="#dash">Your dashboard</a>
+      <a href="#dash">Dashboard</a>
+      <a href="#battle">Battle</a>
       <a href="#tests">Test series</a>
     </nav>
     <div class="spacer"></div>
@@ -400,6 +453,25 @@
   </div>
 </section>
 
+<!-- ===================== BATTLE ===================== -->
+<section class="blk" id="battle">
+  <div class="wrap">
+    <div class="battle-cta">
+      <div class="battle-copy">
+        <p class="eyebrow" style="color:var(--mark)">⚔️ New in 2026 · nobody else has this</p>
+        <h2>Turn revision into a duel.</h2>
+        <p>Five rapid questions, one opponent, a live race to the finish. Win to climb your league and keep the streak alive. This is why aspirants open the app on a Sunday.</p>
+        <button class="btn btn-primary" onclick="startBattle()">Battle a rival now ⚔️</button>
+      </div>
+      <div class="battle-preview">
+        <div class="bp-row"><span class="avatar" style="background:#EC7C1E">YO</span><div class="bp-bar"><i style="width:80%"></i></div><b class="num">4/5</b></div>
+        <div class="bp-vs">VS</div>
+        <div class="bp-row"><span class="avatar" style="background:#7A6BF0">RV</span><div class="bp-bar"><i class="op" style="width:60%"></i></div><b class="num">3/5</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===================== TEST SERIES ===================== -->
 <section class="blk" id="tests">
   <div class="wrap">
@@ -423,6 +495,19 @@
     <p class="disclaimer">Interactive concept mockup. Sample questions are original and for demonstration; exam names belong to their respective conducting bodies. Not affiliated with SSC, IBPS, UPSC, Oliveboard or Testbook.</p>
   </div>
 </footer>
+
+<!-- ===================== DOUBT SOLVER ===================== -->
+<button class="doubt-fab" id="doubtFab" aria-label="Open AI doubt solver">
+  <span>💬</span> Ask a doubt
+</button>
+<div class="doubt-panel" id="doubtPanel" aria-hidden="true">
+  <div class="dp-head">
+    <div><b>Saathi</b> · AI doubt solver <span class="live" style="margin-left:6px"><span class="dot"></span> online</span></div>
+    <button class="icon-btn" style="width:32px;height:32px" onclick="toggleDoubt(false)" aria-label="Close">✕</button>
+  </div>
+  <div class="dp-body" id="dpBody"></div>
+  <div class="dp-chips" id="dpChips"></div>
+</div>
 
 <script>
 /* ---------------- TEST DATA ---------------- */
@@ -507,7 +592,113 @@ const TESTS = {
         opts:["1935","1947","1949","1950"], ans:0,
         exp:"The RBI began operations on 1 April 1935 under the RBI Act, 1934. It was nationalised in 1949." }
     ]
+  },
+  english: {
+    name: "SSC CGL — English Comprehension (Tier-1)",
+    badge: "SSC CGL · PYQ pattern", badgeColor: "#D9663C",
+    minutes: 8,
+    q: [
+      { topic:"Antonym", diff:"Moderate",
+        text:"Select the word that is OPPOSITE in meaning to the given word: 'BENEVOLENT'.",
+        opts:["Kind","Malevolent","Generous","Gracious"], ans:1,
+        exp:"'Benevolent' means kind/well-meaning; its antonym is 'malevolent' (wishing harm). A very common SSC antonym pair." },
+      { topic:"Synonym", diff:"Moderate",
+        text:"Select the most appropriate synonym of the given word: 'METICULOUS'.",
+        opts:["Reckless","Careful","Hasty","Rude"], ans:1,
+        exp:"'Meticulous' means showing great attention to detail — careful and precise." },
+      { topic:"Idioms & Phrases", diff:"Easy",
+        text:"Select the correct meaning of the idiom: 'To let the cat out of the bag'.",
+        opts:["To keep a secret safe","To reveal a secret carelessly","To buy something useless","To start a quarrel"], ans:1,
+        exp:"'Let the cat out of the bag' = to disclose a secret, usually by accident." },
+      { topic:"One-word Substitution", diff:"Moderate",
+        text:"Select the one word for the given group of words: 'A government by the wealthy class'.",
+        opts:["Aristocracy","Plutocracy","Oligarchy","Autocracy"], ans:1,
+        exp:"'Plutocracy' = rule by the wealthy. (Aristocracy = by nobles; Oligarchy = by a few; Autocracy = by one.)" },
+      { topic:"Spelling", diff:"Easy",
+        text:"Select the correctly spelt word.",
+        opts:["Occassion","Occasion","Ocassion","Occasusion"], ans:1,
+        exp:"The correct spelling is 'Occasion' — one 'c', one 's'." },
+      { topic:"Sentence Improvement", diff:"Moderate",
+        text:"Improve the underlined part: 'She is <u>senior than me</u> by three years.'",
+        opts:["senior to me","senior from me","more senior than me","No improvement"], ans:0,
+        exp:"Latin comparatives (senior, junior, superior, prior) take 'to', not 'than' → 'senior to me'." },
+      { topic:"Error Spotting", diff:"Hard",
+        text:"Identify the segment that contains a grammatical error: 'The teacher, along with her students, (A) / were present (B) / at the annual function. (C) / No error (D)'",
+        opts:["Part A","Part B","Part C","No error"], ans:1,
+        exp:"With 'along with', the verb agrees with the singular subject 'teacher' → 'was present', not 'were present'." },
+      { topic:"Active–Passive Voice", diff:"Moderate",
+        text:"Select the correct passive voice of: 'Someone has stolen my bike.'",
+        opts:["My bike has been stolen.","My bike was stolen.","My bike is being stolen.","My bike had been stolen."], ans:0,
+        exp:"Present perfect active (has stolen) → present perfect passive: 'has been stolen'." }
+    ]
+  },
+  rrb: {
+    name: "RRB NTPC — General Science & Maths",
+    badge: "Railways · CBT", badgeColor: "#2C8C7E",
+    minutes: 5,
+    q: [
+      { topic:"Chemistry", diff:"Easy",
+        text:"What is the chemical symbol for Gold?",
+        opts:["Gd","Au","Ag","Go"], ans:1,
+        exp:"Gold is 'Au' (from Latin 'aurum'). 'Ag' is silver." },
+      { topic:"Biology", diff:"Easy",
+        text:"Which cell organelle is known as the 'powerhouse of the cell'?",
+        opts:["Nucleus","Mitochondria","Ribosome","Chloroplast"], ans:1,
+        exp:"Mitochondria generate ATP through respiration — the cell's energy currency." },
+      { topic:"LCM & HCF", diff:"Moderate",
+        text:"Find the LCM of 12, 15 and 20.",
+        opts:["60","120","180","30"], ans:0,
+        exp:"12 = 2²·3, 15 = 3·5, 20 = 2²·5 → LCM = 2²·3·5 = 60." },
+      { topic:"Physics", diff:"Easy",
+        text:"Which gas is the most abundant in Earth's atmosphere?",
+        opts:["Oxygen","Nitrogen","Carbon dioxide","Argon"], ans:1,
+        exp:"Nitrogen makes up about 78% of the atmosphere; oxygen is about 21%." },
+      { topic:"Profit & Loss", diff:"Hard",
+        text:"A shopkeeper marks his goods 40% above cost, then allows a 10% discount. His profit percent is:",
+        opts:["26%","30%","25%","28%"], ans:0,
+        exp:"MP = 1.40·CP; SP = 1.40 × 0.90 = 1.26·CP → profit = 26%." }
+    ]
+  },
+  upsc: {
+    name: "UPSC Prelims — General Studies I",
+    badge: "UPSC · Prelims", badgeColor: "#6D5CE0",
+    minutes: 6,
+    q: [
+      { topic:"Polity", diff:"Hard",
+        text:"The 'Doctrine of Basic Structure' of the Constitution was propounded by the Supreme Court in which case?",
+        opts:["Golaknath case","Kesavananda Bharati case","Minerva Mills case","Maneka Gandhi case"], ans:1,
+        exp:"Kesavananda Bharati v. State of Kerala (1973) established that Parliament cannot alter the Constitution's basic structure." },
+      { topic:"Geography", diff:"Moderate",
+        text:"Which of the following rivers does NOT originate within India?",
+        opts:["Godavari","Brahmaputra","Narmada","Mahanadi"], ans:1,
+        exp:"The Brahmaputra rises in Tibet as the Yarlung Tsangpo; the others originate in India." },
+      { topic:"Economy", diff:"Easy",
+        text:"The term 'Blue Revolution' in India is associated with:",
+        opts:["Milk production","Fish & aquaculture","Oilseed production","Horticulture"], ans:1,
+        exp:"Blue Revolution = development of fisheries and aquaculture. (Milk = White, Oilseeds = Yellow.)" },
+      { topic:"Polity", diff:"Moderate",
+        text:"Provisions relating to anti-defection are contained in which Schedule of the Constitution?",
+        opts:["Ninth Schedule","Tenth Schedule","Eleventh Schedule","Twelfth Schedule"], ans:1,
+        exp:"The Tenth Schedule (added by the 52nd Amendment, 1985) contains the anti-defection provisions." },
+      { topic:"Polity", diff:"Hard",
+        text:"With reference to 'Zero Hour' in the Indian Parliament, which statement is correct?",
+        opts:["It is mentioned in the Constitution","It is an informal device, not in the Rules of Procedure","It is fixed at exactly two hours","It was borrowed from the UK Parliament"], ans:1,
+        exp:"Zero Hour is an Indian innovation — informal, starting right after Question Hour, and not mentioned in the Rules of Procedure." }
+    ]
   }
+};
+
+/* ---------------- BATTLE DATA ---------------- */
+const BATTLE = {
+  name:"Rapid Battle · Quant + GK",
+  perQ:12,
+  q:[
+    { text:"15 × 12 = ?", opts:["170","180","190","175"], ans:1 },
+    { text:"Capital of Australia?", opts:["Sydney","Canberra","Melbourne","Perth"], ans:1 },
+    { text:"25% of 200 = ?", opts:["40","50","45","60"], ans:1 },
+    { text:"Which planet is called the Red Planet?", opts:["Venus","Mars","Jupiter","Mercury"], ans:1 },
+    { text:"Next number: 2, 4, 8, 16, ?", opts:["24","32","30","64"], ans:1 }
+  ]
 };
 
 /* ---------------- STATE ---------------- */
@@ -723,6 +914,142 @@ function closeRunner(){
 }
 overlay.addEventListener('click',e=>{if(e.target===overlay)closeRunner();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))closeRunner();});
+
+/* ---------------- BATTLE ENGINE ---------------- */
+let bt=null, btTimer=null, btOp=null;
+const OPP={name:"Rohit V.",init:"RV"};
+
+function startBattle(){
+  bt={i:0,you:0,op:0};
+  overlay.classList.add('open');
+  document.body.style.overflow='hidden';
+  battleQuestion();
+}
+function battleQuestion(){
+  clearInterval(btTimer); clearTimeout(btOp);
+  const q=BATTLE.q[bt.i];
+  bt.youDone=false; bt.opDone=false; bt.settled=false;
+  const keys=['A','B','C','D'];
+  runner.innerHTML=`
+    <div class="rn-head">
+      <div class="tt">${BATTLE.name}<small>Round ${bt.i+1} of ${BATTLE.q.length}</small></div>
+      <button class="btn btn-ghost" style="margin-left:auto;padding:9px 14px" onclick="closeRunner()">✕ Forfeit</button>
+    </div>
+    <div class="battle-score">
+      <div class="bs-side"><span class="avatar" style="background:#EC7C1E">YO</span><div><div class="nm">You</div><div class="sc num" id="youSc">${bt.you}</div></div></div>
+      <div class="bs-mid">VS</div>
+      <div class="bs-side op"><span class="avatar" style="background:#7A6BF0">${OPP.init}</span><div><div class="nm">${OPP.name}</div><div class="sc num" id="opSc">${bt.op}</div></div></div>
+    </div>
+    <div class="op-flash" id="opFlash">${OPP.name} is thinking…</div>
+    <div class="barea">
+      <div class="btimer"><i id="btBar"></i></div>
+      <div class="qtext">${q.text}</div>
+      <div class="opts" id="bopts">
+        ${q.opts.map((o,i)=>`<button class="opt" data-i="${i}"><span class="key">${keys[i]}</span><span>${o}</span></button>`).join('')}
+      </div>
+    </div>`;
+  document.querySelectorAll('#bopts .opt').forEach(b=>b.onclick=()=>battleAnswer(+b.dataset.i));
+
+  // opponent behaviour: ~72% accurate, answers at a random moment
+  const opCorrect=Math.random()<0.72;
+  const opDelay=Math.min(BATTLE.perQ*1000-400, 1800+Math.random()*6000);
+  btOp=setTimeout(()=>{
+    bt.opDone=true; if(opCorrect)bt.op++;
+    document.getElementById('opSc').textContent=bt.op;
+    const f=document.getElementById('opFlash');
+    if(f){f.textContent=`${OPP.name} answered ${opCorrect?'✓':'✗'}`;f.style.color=opCorrect?'var(--teal)':'var(--wrong)';}
+    maybeSettle();
+  },opDelay);
+
+  // countdown bar
+  let t=BATTLE.perQ; const bar=document.getElementById('btBar'); bar.style.width='100%';
+  btTimer=setInterval(()=>{
+    t--; const pct=Math.max(0,t/BATTLE.perQ*100);
+    bar.style.width=pct+'%'; bar.classList.toggle('low',t<=3);
+    if(t<=0){clearInterval(btTimer); forceSettle();}
+  },1000);
+}
+function battleAnswer(i){
+  if(bt.youDone||bt.settled)return;
+  bt.youDone=true;
+  const q=BATTLE.q[bt.i];
+  if(i===q.ans)bt.you++;
+  document.getElementById('youSc').textContent=bt.you;
+  document.querySelectorAll('#bopts .opt').forEach((b,bi)=>{
+    b.disabled=true;
+    if(bi===q.ans)b.classList.add('correct');
+    else if(bi===i)b.classList.add('incorrect');
+  });
+  maybeSettle();
+}
+function forceSettle(){ bt.youDone=true; if(!bt.opDone)bt.opDone=true; maybeSettle(true); }
+function maybeSettle(force){
+  if(bt.settled)return;
+  if(force || (bt.youDone && bt.opDone)){
+    bt.settled=true; clearInterval(btTimer); clearTimeout(btOp);
+    const q=BATTLE.q[bt.i];
+    document.querySelectorAll('#bopts .opt').forEach((b,bi)=>{b.disabled=true;if(bi===q.ans)b.classList.add('correct');});
+    setTimeout(()=>{ bt.i++; bt.i>=BATTLE.q.length ? battleResult() : battleQuestion(); },1200);
+  }
+}
+function battleResult(){
+  clearInterval(btTimer); clearTimeout(btOp);
+  const won=bt.you>bt.op, draw=bt.you===bt.op;
+  runner.innerHTML=`
+    <div class="rn-head"><div class="tt">Battle result</div>
+      <button class="btn btn-ghost" style="margin-left:auto;padding:9px 14px" onclick="closeRunner()">✕ Close</button></div>
+    <div class="results" style="text-align:center">
+      <div style="font-size:64px;margin:10px 0">${won?'🏆':draw?'🤝':'💪'}</div>
+      <h2 style="font-size:28px">${won?'You won the battle!':draw?"It's a draw!":'So close — rematch?'}</h2>
+      <div class="res-stats two" style="max-width:420px;margin:22px auto">
+        <div class="res-stat"><div class="v num" style="color:var(--brand-deep)">${bt.you}</div><div class="k">You</div></div>
+        <div class="res-stat"><div class="v num" style="color:var(--mark)">${bt.op}</div><div class="k">${OPP.name}</div></div>
+      </div>
+      <div class="pct-banner" style="max-width:460px;margin:0 auto;justify-content:center;text-align:center">
+        <div><div class="eyebrow" style="color:var(--brand-deep)">${won?'+35 XP · League points earned':'+10 XP · Streak kept alive'}</div>
+        <div style="font-weight:700;color:var(--ink-2);margin-top:4px">You're now #3 in the Gold League 🥇</div></div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:22px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="startBattle()">Rematch ⚔️</button>
+        <button class="btn btn-ghost" onclick="closeRunner()">Done</button>
+      </div>
+    </div>`;
+}
+
+/* ---------------- DOUBT SOLVER ---------------- */
+const DOUBTS={
+  "Trick for Speed & Distance?":"For train problems: <b>total distance = train length + object length</b>. To convert m/s → km/h, multiply by <b>18/5</b>; km/h → m/s, multiply by <b>5/18</b>. So 15 m/s × 18/5 = <b>54 km/h</b>. Want a practice set on this?",
+  "Explain the 20% rule in Percentages":"When a price rises by <b>r%</b> and you must keep the bill the same, cut consumption by <b>r/(100+r) × 100%</b>. For a 25% rise → 25/125 = <b>20%</b>. It's always less than the rise itself — that trips most students up!",
+  "Why is Article 32 special?":"Article 32 is itself a <b>Fundamental Right</b> — the right to move the Supreme Court directly if any other Fundamental Right is violated. Dr. Ambedkar called it the <b>'heart and soul' of the Constitution</b>. It empowers courts to issue writs like habeas corpus and mandamus.",
+  "Give me 3 quant questions to practice":"On it! I've queued a <b>3-question set on Averages & Percentages</b> matched to your weak topics from last week. Tap 'Start' on the SSC Quant card above — I've reordered it to your level. 📈"
+};
+const dpBody=document.getElementById('dpBody'), dpChips=document.getElementById('dpChips');
+function toggleDoubt(open){
+  const p=document.getElementById('doubtPanel');
+  const show = open!==undefined ? open : !p.classList.contains('open');
+  p.classList.toggle('open',show);
+  document.getElementById('doubtFab').style.display=show?'none':'flex';
+  if(show && !dpBody.dataset.init){ dpBody.dataset.init='1'; botSay("Hi Japji 👋 I'm <b>Saathi</b>, your AI study buddy. Ask me anything — a formula, a shortcut, or why an answer is what it is. I reply in seconds, in Hindi or English."); renderChips(); }
+}
+document.getElementById('doubtFab').onclick=()=>toggleDoubt(true);
+function botSay(html){
+  const m=document.createElement('div'); m.className='msg bot'; m.innerHTML=html;
+  dpBody.appendChild(m); dpBody.scrollTop=dpBody.scrollHeight;
+}
+function renderChips(){
+  dpChips.innerHTML='';
+  Object.keys(DOUBTS).forEach(q=>{
+    const b=document.createElement('button'); b.textContent=q;
+    b.onclick=()=>askDoubt(q); dpChips.appendChild(b);
+  });
+}
+function askDoubt(q){
+  const m=document.createElement('div'); m.className='msg me'; m.textContent=q;
+  dpBody.appendChild(m); dpBody.scrollTop=dpBody.scrollHeight;
+  const typing=document.createElement('div'); typing.className='typing'; typing.innerHTML='<i></i><i></i><i></i>';
+  dpBody.appendChild(typing); dpBody.scrollTop=dpBody.scrollHeight;
+  setTimeout(()=>{ typing.remove(); botSay(DOUBTS[q]||"Great question — in the full app I'd work through this step by step and link practice questions."); },900);
+}
 
 /* ---------------- THEME TOGGLE ---------------- */
 const root=document.documentElement;
